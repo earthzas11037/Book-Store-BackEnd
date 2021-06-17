@@ -22,7 +22,7 @@ exports.createUserValidator = () => {
 exports.loginValidator = () => {
     return [
         check('email').isEmail(),
-        check('password').isLength({ min: 8 })
+        check('password').notEmpty()
     ]
 }
 

@@ -44,6 +44,10 @@ class shoppingCartController {
         }
     }
 
+    async delete_all_shoppingCart(user_id) {
+        var result = (await objShoppingCartModel.deleteAll(user_id))
+        return result
+    }
 }
 
 module.exports = shoppingCartController

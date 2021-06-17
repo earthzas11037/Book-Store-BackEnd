@@ -75,6 +75,31 @@ router.patch('/', validator.shoppingCartValidator(), authorize.authorization, as
     }
 });
 
+/* Delete all item in cart */
+router.delete('/all', authorize.authorization, async(req, res) => {
+    try{
+        const errors = validator.resultsValidator(req)
+        if (errors.length > 0) {
+            return res.status(400).json({
+                method: req.method,
+                status: res.statusCode,
+                error: errors
+            })
+        }
+
+        var result = (await objShoppingCartController.delete_all_shoppingCart(
+            req.user.user_id,
+        ))
+        res.json(result);
+        res.end();
+    }catch(err){
+        res.status(err.status).json({
+            message: err.message
+        })
+        res.end();
+    }
+});
+
 /* Delete item in cart */
 router.delete('/:book_id', authorize.authorization, async(req, res) => {
     try{
@@ -100,5 +125,6 @@ router.delete('/:book_id', authorize.authorization, async(req, res) => {
         res.end();
     }
 });
+
 
 module.exports = router;

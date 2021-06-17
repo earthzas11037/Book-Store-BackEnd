@@ -75,6 +75,20 @@ class shoppingCartModel{
         }
     }
 
+    async deleteAll(user_id) {
+        try{
+            const sql = `DELETE FROM shopping_cart
+                            WHERE user_id = '${user_id}';`;
+
+            let result = await connect.promiseQuery(sql);
+            console.log(result)
+            return result
+        }catch(err){
+            console.log(err)
+            return []
+        }
+    }
+
 }
 
 module.exports = shoppingCartModel
